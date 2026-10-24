@@ -1,0 +1,9 @@
+DEFINE ACTION TriageAlertRouter
+ON TOPIC "medipath/symptoms/submitted" DO
+    SET "urgencia" WITH (GET JSON "urgencia" IN PAYLOAD AS INT)
+    IF {urgencia} >= 1 THEN
+        PUBLISH TOPIC "medipath/triage/alerts" WITH PAYLOAD
+
+DEFINE ACTION MedicationConfirmRouter
+ON TOPIC "medipath/medication/registered" DO
+    PUBLISH TOPIC "medipath/medication/confirmed" WITH PAYLOAD

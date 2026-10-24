@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --watch --env-file-if-exists=.env server.js",
+    "deploy:coreflux": "node --env-file-if-exists=.env deploy-coreflux.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
