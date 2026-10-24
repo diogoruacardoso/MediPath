@@ -7,7 +7,7 @@ Assistente de saúde digital para organizar sintomas e planos de medicação, co
 ## O que faz
 
 1. **Regista sintomas** e devolve informação geral e indicação de quando procurar ajuda (três níveis: geral, atenção, urgente). Sinais de alerta (por exemplo, dor no peito ou dificuldade em respirar) mostram uma indicação clara para ligar 112.
-2. **Regista planos de medicação** já indicados por um profissional de saúde. A aplicação não sugere medicamentos.
+2. **Regista planos de medicação** já indicados por um profissional de saúde/médico. A aplicação não sugere medicamentos.
 3. **Emite lembretes** à hora do plano, agendados dentro do Coreflux.
 4. **Mostra em tempo real** os eventos processados pelo Coreflux e o histórico.
 
@@ -92,14 +92,14 @@ Para um broker local sem TLS use `MQTT_URL=mqtt://localhost:1883`. **Nunca** env
 
 ## Executar
 
-**1. Carregar as Actions no Coreflux** (só na primeira vez, ou quando `coreflux/medipath.lot` mudar):
+**1. Carregar as Actions no Coreflux** (só na primeira vez, ou quando o `coreflux/medipath.lot` mudar):
 
 ```bash
 cd backend
 npm run deploy:coreflux
 ```
 
-Procure `"success":true` nas respostas. Em alternativa, cole cada bloco de `coreflux/medipath.lot` no *LoT Editor* do HUB.
+Procurar `"success":true` nas respostas. Em alternativa, colar cada bloco de `coreflux/medipath.lot` no *LoT Editor* do HUB.
 
 **2. Arrancar o backend** (porta 3001):
 
@@ -108,7 +108,7 @@ cd backend
 npm start
 ```
 
-Deve aparecer `✅ Ligado ao broker MQTT`. Pode confirmar com `curl http://localhost:3001/api/health` (esperado: `{"ok":true,"mqtt":true}`).
+Deve aparecer `✅ Ligado ao broker MQTT`. Confirmar em `curl http://localhost:3001/api/health` (esperado: `{"ok":true,"mqtt":true}`).
 
 **3. Arrancar o frontend** (porta 5173), noutro terminal:
 
@@ -121,9 +121,9 @@ Abra **http://localhost:5173**.
 
 ## Demonstração (dados fictícios)
 
-1. Marque **Tosse**, intensidade 2: cartão verde, **nenhum** evento do Coreflux.
-2. Marque **Dor no peito**, intensidade 7: cartão vermelho com 112 e um evento em `medipath/triage/alerts`.
-3. Registe um medicamento fictício (por exemplo, "Medicamento Exemplo", 1 comprimido), confirme que foi indicado por um profissional e ative o **modo demonstração**: aparece a confirmação do Coreflux e, cerca de 20 segundos depois, o lembrete.
+1. Marcar **Tosse**, intensidade 2: cartão verde, **nenhum** evento do Coreflux.
+2. Marcar **Dor no peito**, intensidade 7: cartão vermelho com 112 e um evento em `medipath/triage/alerts`.
+3. Registar um medicamento fictício (por exemplo, "Medicamento Exemplo", 1 comprimido), confirmar que foi indicado por um profissional e ativar o **modo demonstração**: irá aparecer a confirmação do Coreflux e, cerca de 20 segundos depois, o lembrete.
 
 Dica: abra o MQTT Explorer subscrito a `medipath/#` ao lado da aplicação para ver os eventos a passar pelo broker.
 
